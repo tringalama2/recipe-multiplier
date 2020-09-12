@@ -1,3 +1,5 @@
+const PrintRecipe = require("../Views/print-recipe");
+
 class Recipe {
   constructor(name) {
     this.name = name;
@@ -10,8 +12,12 @@ class Recipe {
 
   multiply(multiplier) {
     this.ingredients.forEach((ingredient, index, array) => {
-      ingredient.quantity *= multiplier;
+      ingredient.multiply(multiplier);
     });
+  }
+
+  printHtml(element) {
+    new PrintRecipe(this, element);
   }
 }
 

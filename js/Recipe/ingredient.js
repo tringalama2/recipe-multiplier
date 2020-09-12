@@ -5,8 +5,13 @@ import pluralize, { singular, plural, isSingular } from "pluralize";
 class Ingredient {
   constructor(name, quantity, unit) {
     this.name = name;
-    this.quantity = quantity;
+    this.baseQuantity = quantity;
+    this.currentQuantity = quantity;
     this.unit = unit;
+
+    this.opts = new FractionalizeOptions();
+    this.opts.maxDenominator = 12;
+    this.opts.tolerance = 0.05;
   }
 
   getName() {
@@ -21,16 +26,23 @@ class Ingredient {
   }
 
   getUnit() {
-    if (!isSingular(this.unit) && this.isSingleQuantity(this.quantity)) {
+    if (!isSingular(this.unit) && this.isSingleQuantity(this.currentQuantity)) {
       return singular(this.unit);
-    } else if (isSingular(this.unit) && !this.isSingleQuantity(this.quantity)) {
+    } else if (isSingular(this.unit) && !this.isSingleQuantity(this.currentQuantity)) {
       return pluralize(this.unit);
     }
     return this.unit;
   }
 
-  getQuantity() {
-    return Fractionalize(this.quantity);
+  getBaseQuantity() {
+    return Fractionalize(this.baseQuantity, this.opts);
+  }
+  getCurrentQuantity() {
+    return Fractionalize(this.currentQuantity, this.opts);
+  }
+
+  multiply(multiplier) {
+    this.currentQuantity = multiplier * this.baseQuantity;
   }
 
   isSingleQuantity(quantity) {
