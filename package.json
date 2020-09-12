@@ -2,7 +2,7 @@
   "name": "recipe-multiplier",
   "version": "1.0.0",
   "description": "double or triple your recipes",
-  "main": "index.js",
+  "main": "./js/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "date-fns": "^2.16.1",
+    "fraction-calculator": "^1.0.14",
+    "fractionalize": "^1.0.3",
     "parcel-bundler": "^1.12.4",
     "pluralize": "^8.0.0"
   }
